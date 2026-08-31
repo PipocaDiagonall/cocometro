@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💩 Cocômetro</title>
+<meta name="description" content="Descubra quanto vale o seu tempo no banheiro durante o expediente.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ONBOARDING -->
+  <section id="view-onboarding" class="view">
+    <div class="card">
+      <h1>💩 Cocômetro</h1>
+      <p class="subtitle">Descubra quanto vale o seu tempo no banheiro.</p>
+
+      <form id="settingsForm">
+        <label>💰 Quanto você ganha por mês?
+          <input type="number" id="salary" min="0" step="0.01" placeholder="3000" required>
+        </label>
+        <label>📅 Quantos dias você trabalha por mês?
+          <input type="number" id="workDays" min="1" max="31" value="22" required>
+        </label>
+        <label>🕐 Quantas horas você trabalha por dia?
+          <input type="number" id="workHours" min="1" max="24" value="8" required>
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">Calcular meu valor 💩</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- HOME / DASHBOARD -->
+  <section id="view-home" class="view hidden">
+    <header class="topbar">
+      <span class="logo">💩 Cocômetro</span>
+      <button class="icon-btn" data-nav="settings" title="Configurações">⚙️</button>
+    </header>
+
+    <div class="card center">
+      <p class="label">Você vale</p>
+      <p class="big-money" id="hourlyRateDisplay">R$ 0,00 <span>/hora</span></p>
+      <p class="minute-rate" id="minuteRateDisplay">R$ 0,00 por minuto</p>
+
+      <button id="startBtn" class="btn btn-poop">💩 VOU CAGAR</button>
+    </div>
+
+    <nav class="tab-nav">
+      <button data-nav="history">📜 Histórico</button>
+      <button data-nav="stats">📊 Estatísticas</button>
+    </nav>
+  </section>
+
+  <!-- TIMER -->
+  <section id="view-timer" class="view hidden">
+    <div class="card center">
+      <p class="poop-emoji">💩</p>
+      <p class="label">CAGADA EM ANDAMENTO</p>
+      <p class="timer" id="timerDisplay">00:00:00</p>
+      <p class="label">Você já "ganhou"</p>
+      <p class="big-money" id="liveValue">R$ 0,00</p>
+      <p class="funny-msg" id="funnyMsg">Continue. O salário não vai se cagar sozinho.</p>
+      <button id="finishBtn" class="btn btn-poop">🚽 TERMINEI</button>
+    </div>
+  </section>
+
+  <!-- RESULTADO -->
+  <section id="view-result" class="view hidden">
+    <div class="card center">
+      <p class="poop-emoji">🏆</p>
+      <p class="label">CAGADA FINALIZADA!</p>
+      <p class="result-line">Você ficou sentado por</p>
+      <p class="timer" id="resultDuration">00:00</p>
+      <p class="result-line">Você recebeu</p>
+      <p class="big-money" id="resultValue">R$ 0,00</p>
+      <div class="result-actions">
+        <button class="btn btn-poop" data-nav="home-newpoop">💩 CAGAR DE NOVO</button>
+        <button class="btn btn-outline" data-nav="stats">📊 VER ESTATÍSTICAS</button>
+        <button class="btn btn-outline" data-nav="home">🏠 VOLTAR AO INÍCIO</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTÓRICO -->
+  <section id="view-history" class="view hidden">
+    <header class="topbar">
+      <button class="icon-btn" data-nav="home" title="Voltar">←</button>
+      <span class="logo">📜 Histórico</span>
+      <span></span>
+    </header>
+    <div class="card">
+      <div id="historyList" class="history-list">
+        <p class="empty-state">Nenhuma cagada registrada ainda. 💩</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTATÍSTICAS -->
+  <section id="view-stats" class="view hidden">
+    <header class="topbar">
+      <button class="icon-btn" data-nav="home" title="Voltar">←</button>
+      <span class="logo">📊 Estatísticas</span>
+      <span></span>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <p class="stat-title">Hoje</p>
+        <p class="stat-line"><span id="statTodayCount">0</span> cagadas</p>
+        <p class="stat-line"><span id="statTodayTime">0min</span></p>
+        <p class="stat-value" id="statTodayValue">R$ 0,00</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-title">Esta semana</p>
+        <p class="stat-line"><span id="statWeekCount">0</span> cagadas</p>
+        <p class="stat-line"><span id="statWeekTime">0min</span></p>
+        <p class="stat-value" id="statWeekValue">R$ 0,00</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-title">Este mês</p>
+        <p class="stat-line"><span id="statMonthCount">0</span> cagadas</p>
+        <p class="stat-line"><span id="statMonthTime">0min</span></p>
+        <p class="stat-value" id="statMonthValue">R$ 0,00</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="label">💰 Percentual do salário conquistado no banheiro (este mês)</p>
+      <p class="big-money" id="statPercent">0%</p>
+    </div>
+  </section>
+
+  <!-- CONFIGURAÇÕES -->
+  <section id="view-settings" class="view hidden">
+    <header class="topbar">
+      <button class="icon-btn" data-nav="home" title="Voltar">←</button>
+      <span class="logo">⚙️ Configurações</span>
+      <span></span>
+    </header>
+    <div class="card">
+      <form id="editSettingsForm">
+        <label>💰 Salário mensal
+          <input type="number" id="editSalary" min="0" step="0.01" required>
+        </label>
+        <label>📅 Dias trabalhados por mês
+          <input type="number" id="editWorkDays" min="1" max="31" required>
+        </label>
+        <label>🕐 Horas trabalhadas por dia
+          <input type="number" id="editWorkHours" min="1" max="24" required>
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+      </form>
+    </div>
+  </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
